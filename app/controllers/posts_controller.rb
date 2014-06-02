@@ -1,4 +1,12 @@
 class PostsController < ApplicationController
+  before_action :require_signed_in
+  
+  def index
+    @user = current_user
+    @posts = Post.where(user_id: current_user.id)
+    render :index
+  end
+
   def new
     @post = Post.new
     @circles = Circle.where(user_id: current_user.id)
@@ -8,11 +16,10 @@ class PostsController < ApplicationController
   def create
     @post = current_user.posts.new(post_params)
     if @post.save
+      redirect_to user_posts_url
     else
-      flash.now[:error]=
+      flash.now[:errors]= @post.errors.full_messages
     end
-    p @post
-    redirect_to new_user_post_url
   end
 
   def post_params

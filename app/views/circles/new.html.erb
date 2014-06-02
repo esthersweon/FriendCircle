@@ -2,6 +2,8 @@
 
 <form action="<%= user_circles_url(current_user)%>" method="post">
 
+  <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token%>">
+
   <label>Title
     <input type="text" name="circle[title]" value="">
   </label>

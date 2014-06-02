@@ -19,6 +19,18 @@ class User < ActiveRecord::Base
   has_many :memberships, through: :circles, source: :members
   has_many :members, through: :memberships, source: :members
 
+  def self.find_by_credentials(email, password)
+    user = User.find_by_email(email)
+    return nil if user.nil?
+    user.is_password?(password) ? user : nil
+  end
+
+  def reset_session_token!
+    self.session_token = SecureRandom.hex
+    self.save!
+    self.session_token
+  end
+  
   def password=(password)
     unless password.empty?
       self.password_digest = BCrypt::Password.create(password)

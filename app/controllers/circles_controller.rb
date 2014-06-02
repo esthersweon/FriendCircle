@@ -1,4 +1,9 @@
 class CirclesController < ApplicationController
+  before_action :require_signed_in
+  def index
+    @user = current_user
+    render :index
+  end
 
   def new
     @circle = Circle.new
@@ -18,7 +23,7 @@ class CirclesController < ApplicationController
       #     circle_id: @circle.id)
       #   membership.save
       # end
-      redirect_to new_user_circle_url(current_user)
+      redirect_to user_posts_url
     else
       @users = User.all
       flash.now[:errors] = @circle.errors.full_messages

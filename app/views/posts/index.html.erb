@@ -1,0 +1,9 @@
+<h3>My Posts</h3>
+
+<ul>
+	<% @posts.each do |post| %>
+		<li><%= post.body %></li>
+	<% end %>
+</ul>
+
+<h4><%= link_to "Home Page", user_url(@user) %></h4>

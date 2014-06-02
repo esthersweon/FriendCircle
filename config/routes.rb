@@ -1,4 +1,6 @@
 FriendCircle::Application.routes.draw do
+
+	root to: "sessions#new"
   resource :session
   resources :users do
     resources :circles, only: [:create, :new, :index]

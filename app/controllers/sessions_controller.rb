@@ -1,19 +1,25 @@
 class SessionsController < ApplicationController
   def new
     @user = User.new
-    @users = User.all
     render :new
   end
 
   def create
-    @user = User.find_by_email(user_params[:email])
-    login(@user) if @user.is_password?(user_params[:password])
+    @user = User.find_by_credentials(
+      params[:user][:email],
+      params[:user][:password])
 
-    redirect_to new_session_url
+    if @user
+      sign_in(@user)
+      redirect_to user_url(@user)
+    else
+      flash.now[:errors] = ["Invalid username or password."]
+      render :new
+    end
   end
 
   def destroy
-    logout
+    sign_out
     redirect_to new_session_url
   end
 
