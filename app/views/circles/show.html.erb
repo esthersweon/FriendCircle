@@ -1,0 +1,9 @@
+<h1><%= @circle.title %></h1>
+
+<ul>
+	<% @circle.members.each do |member| %>
+		<li><%= member.email %></li>
+	<% end %>
+</ul>
+
+<%= link_to "All Circles", user_circles_url(@circle) %>

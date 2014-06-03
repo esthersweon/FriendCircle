@@ -2,7 +2,13 @@
 
 <ul>
 	<% @posts.each do |post| %>
-		<li><%= post.body %></li>
+		<li> <%= post.body %>
+			<ul><%= post.circles.nil? ? "Shared With:" : "" %>
+				<% post.circles.each do |circle| %>
+					<li><%= circle.title %></li>
+				<% end %>
+			</ul>
+		</li>
 	<% end %>
 </ul>
 

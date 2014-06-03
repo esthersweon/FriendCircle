@@ -2,7 +2,7 @@
 
 <ul>
 	<% @user.circles.each do |circle| %>
-		<li><%= circle.title %></li>
+		<li><%= link_to circle.title, circle_url(circle) %></li>
 	<% end %>
 </ul>
 
